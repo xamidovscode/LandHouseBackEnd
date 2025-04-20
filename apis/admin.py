@@ -160,6 +160,14 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     list_display_links = ('title',)
 
+    fieldsets = (
+        ('main', {'fields': ('url', 'youtube_url', 'image', )}),
+        ('uz', {
+            'fields': ('title_uz', 'description_uz')}),
+        ('ru', {
+            'fields': ('title_ru', 'description_ru')}),
+    )
+
 
 admin.site.register(models.Banner, BannerAdmin)
 
@@ -170,9 +178,20 @@ class AboutCompanyAdmin(admin.ModelAdmin):
         model = models.AboutCompanyImages
         extra = 1
 
+    inlines = [ImagesInline]
+
     list_display = ('id',)
     list_display_links = ('id',)
-    inlines = [ImagesInline]
+    fieldsets = (
+        ('uz', {
+            'fields': (
+                'description_uz', 'obj1_uz', 'key1_uz', 'obj2_uz', 'key2_uz', 'obj3_uz', 'key3_uz'
+            )}),
+        ('ru', {
+            'fields': (
+                'description_ru', 'obj1_ru', 'key1_ru', 'obj2_ru', 'key2_ru', 'obj3_ru', 'key3_ru'
+            )}),
+    )
 
     def has_add_permission(self, request):
         return not models.AboutCompany.objects.first()

@@ -323,7 +323,10 @@ class Banner(models.Model):
         null=True,
         verbose_name="ютуб-адрес",
     )
-    image = models.ImageField(upload_to="banners/")
+    image = models.ImageField(
+        upload_to="banners/",
+        verbose_name="Снимок"
+    )
 
     class Meta:
         verbose_name = "Баннер"
@@ -336,7 +339,7 @@ class AboutCompany(models.Model):
     )
     obj1 = models.CharField(
         max_length=300,
-        verbose_name="1 название"
+        verbose_name="название 1"
     )
     key1 = models.CharField(
         max_length=300,
@@ -344,7 +347,7 @@ class AboutCompany(models.Model):
     )
     obj2 = models.CharField(
         max_length=300,
-        verbose_name="2 название"
+        verbose_name="название 2"
     )
     key2 = models.CharField(
         max_length=300,
@@ -352,7 +355,7 @@ class AboutCompany(models.Model):
     )
     obj3 = models.CharField(
         max_length=300,
-        verbose_name="3 название"
+        verbose_name="название 3"
     )
     key3 = models.CharField(
         max_length=300,
@@ -365,7 +368,14 @@ class AboutCompany(models.Model):
 
 
 class AboutCompanyImages(models.Model):
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(
+        upload_to="images/",
+        verbose_name="Фото"
+    )
     company = models.ForeignKey(
         AboutCompany, related_name="images", on_delete=models.CASCADE
     )
+
+    class Meta:
+        verbose_name = "Фотографии"
+        verbose_name_plural = "Фотографии"
