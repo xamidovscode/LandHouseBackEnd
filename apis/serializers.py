@@ -245,3 +245,48 @@ class NewDetailSerializer(serializers.ModelSerializer):
             'description',
             'photo',
         ]
+
+
+class BannerListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Banner
+        fields = (
+            'id',
+            'title',
+            'description',
+            'url',
+            'youtube_url',
+            'image'
+        )
+
+
+class AboutCompanyImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.AboutCompanyImages
+        fields = (
+            'id',
+            'image'
+        )
+
+
+
+class AboutCompanySerializer(serializers.ModelSerializer):
+    images = AboutCompanyImagesSerializer(many=True)
+
+    class Meta:
+        model = models.AboutCompany
+        fields = (
+            'id',
+            'description',
+            'obj1',
+            'key1',
+            'obj2',
+            'key2',
+            'obj3',
+            'key3',
+            'images'
+        )
+
+

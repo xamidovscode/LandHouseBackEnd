@@ -25,6 +25,10 @@ urlpatterns = [
     path('news/', views.NewsAPIView.as_view()),
     path('news/new/', views.NewAPIView.as_view()),
 
+
+    path('banners-list/', views.BannerListAPIView.as_view()),
+    path('about-company/', views.AboutCompanyListAPIView.as_view()),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

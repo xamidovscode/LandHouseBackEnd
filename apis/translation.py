@@ -33,3 +33,24 @@ class NewsTranslationOptions(TranslationOptions):
         'title',
         'description',
     )
+
+
+@register(models.Banner)
+class BannerTranslationOptions(TranslationOptions):
+    fields = (
+        'title',
+        'description',
+    )
+
+
+@register(models.AboutCompany)
+class AboutCompanyTranslationOptions(TranslationOptions):
+    fields = (
+        'description',
+        'obj1',
+        'key1',
+        'obj2',
+        'key2',
+        'obj3',
+        'key3',
+    )

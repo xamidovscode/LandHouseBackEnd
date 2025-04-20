@@ -19,6 +19,7 @@ four = "4. Заявка на общей информации"
 five = "5. Заявка об объекте"
 six = "6. Заявка на комнату"
 seven = "7. Новости"
+eight = "8. Баннер"
 
 
 class CompanyAdmin(admin.ModelAdmin):
@@ -153,3 +154,28 @@ class NewsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.New, NewsAdmin)
+
+
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+    list_display_links = ('title',)
+
+
+admin.site.register(models.Banner, BannerAdmin)
+
+
+class AboutCompanyAdmin(admin.ModelAdmin):
+
+    class ImagesInline(admin.TabularInline):
+        model = models.AboutCompanyImages
+        extra = 1
+
+    list_display = ('id',)
+    list_display_links = ('id',)
+    inlines = [ImagesInline]
+
+    def has_add_permission(self, request):
+        return not models.AboutCompany.objects.first()
+
+
+admin.site.register(models.AboutCompany, AboutCompanyAdmin)

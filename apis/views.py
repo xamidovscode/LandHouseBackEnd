@@ -6,7 +6,7 @@ from apis import models, serializers
 from utils.languages import language
 from utils.pagination import PaginationDynamicResponseSerializer, paginate_dynamic
 from apis.exceptions import error_exception, ErrorCodes
-from rest_framework import exceptions
+from rest_framework import exceptions, generics
 from rest_framework.response import Response
 from utils.responses import success, response_schema
 
@@ -241,3 +241,20 @@ class NewAPIView(BaseAPIView):
         ser = serializers.NewDetailSerializer(new)
 
         return Response(ser.data, 200)
+
+
+
+class BannerListAPIView(generics.ListAPIView):
+    queryset = models.Banner.objects.all()
+    serializer_class = serializers.BannerListSerializer
+    pagination_class = None
+
+
+class AboutCompanyListAPIView(generics.RetrieveAPIView):
+    queryset = models.AboutCompany.objects.all()
+    serializer_class = serializers.AboutCompanySerializer
+    pagination_class = None
+
+
+    def get_object(self):
+        return models.AboutCompany.objects.first()

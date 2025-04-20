@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django_cleanup',
     'silk',
     'modeltranslation',
-
     'apis',
 ]
 
