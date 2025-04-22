@@ -32,6 +32,9 @@ services:
     entrypoint: ./entrypoint.sh
     ports:
       - "8019:8019"
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
     env_file:
       - .env
     environment:
