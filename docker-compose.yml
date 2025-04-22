@@ -1,0 +1,51 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: landhouse_db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: landhouse_redis
+    restart: always
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: .
+    container_name: landhouse_web
+    entrypoint: ./entrypoint.sh
+    ports:
+      - "8019:8019"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379/0
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+

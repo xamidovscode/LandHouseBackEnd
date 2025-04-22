@@ -2,8 +2,12 @@ import os
 from corsheaders.defaults import default_headers
 from pathlib import Path
 from decouple import config
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+env.read_env(".env")
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -80,12 +84,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": env.str("DB_ENGINE"),
+        "NAME": env.str("DB_NAME"),
+        "USER": env.str("DB_USER"),
+        "PASSWORD": env.get_value("DB_PASSWORD"),
+        "HOST": env.str("DB_HOST"),
+        "PORT": env.str("DB_PORT"),
+        "ATOMIC_REQUESTS": True,
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
