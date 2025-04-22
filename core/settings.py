@@ -49,7 +49,11 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Example for local development
+    "https://lhd.uz",  # Example for local development
+
+]
 CSRF_TRUSTED_ORIGINS = [
     "http://xamidovcoder.uz",
     "https://xamidovcoder.uz",
